@@ -30,7 +30,7 @@ const getCurrentMonthAndYear = () => {
   };
 };
 
-export default function CustomHeader() {
+export default function CustomHeader({navigation}) {
   const { month, year, day: currentDay } = getCurrentMonthAndYear();
   const [days, setDays] = useState([]);
   const [selectedDate, setSelectedDate] = useState(currentDay);
@@ -135,12 +135,6 @@ export default function CustomHeader() {
           </TouchableOpacity>
           <TouchableOpacity style={styles.headerIcon}>
             <Image
-              source={require('../assets/HeaderIcons/pencil.png')}
-              style={styles.icon}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.headerIcon}>
-            <Image
               source={require('../assets/HeaderIcons/calendar (1).png')}
               style={styles.icon}
             />
@@ -178,7 +172,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     backgroundColor: '#F9F9F9',
   },
   headerDate: {
@@ -198,7 +192,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    width: '60%',
+    width: '45%',
   },
   headerIcon: {
     height: 40,
