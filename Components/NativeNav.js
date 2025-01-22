@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaView, StyleSheet, Platform, StatusBar } from 'react-native';
 
 import MyTabs from './BottomNav';
+import NewTaskScreen from '../ScreenComponents/TasksFolder/AddingTasksScreen';
 
 const Stack = createStackNavigator();
 
@@ -16,6 +17,7 @@ export default function MyStack() {
           }}
         >
           <Stack.Screen name="Home" component={MyTabs} />
+          <Stack.Screen name="AddTask" component={NewTaskScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
