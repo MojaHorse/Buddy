@@ -10,7 +10,7 @@ import {
   Alert,
 } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import { collection, addDoc } from '../../Components/FirebaseConfig';
+import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../Components/FirebaseConfig';
 
 export default function NewTaskScreen() {
@@ -33,12 +33,12 @@ export default function NewTaskScreen() {
   const hideEndTimePicker = () => setEndTimePickerVisibility(false);
 
   const handleStartTimeConfirm = (date) => {
-    setStartTime(date.toLocaleString());
+    setStartTime(date.toISOString());
     hideStartTimePicker();
   };
-
+  
   const handleEndTimeConfirm = (date) => {
-    setEndTime(date.toLocaleString());
+    setEndTime(date.toISOString());
     hideEndTimePicker();
   };
 
@@ -68,19 +68,21 @@ export default function NewTaskScreen() {
       Alert.alert('Error', 'End time is required.');
       return;
     }
-
+  
     const task = {
       taskName: taskName.trim(),
       startTime,
       endTime,
       color: selectedColor,
       subTasks,
+      createdAt: new Date().toISOString(),
     };
-
+  
     try {
       const tasksCollectionRef = collection(db, 'tasks');
       await addDoc(tasksCollectionRef, task);
       Alert.alert('Success', 'Task saved successfully!');
+      
       setTaskName('');
       setStartTime('');
       setEndTime('');
@@ -180,8 +182,8 @@ export default function NewTaskScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: '#f8f8f8',
+    paddingHorizontal: 20,
+    backgroundColor: '#F9F9F9', // Light pastel yellow
   },
   header: {
     flexDirection: 'row',
@@ -190,56 +192,57 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
-    color: '#FF6600',
+    color: '#FF8BA7', // Soft pink
+    fontFamily: 'Avenir-Next',
   },
   icon: {
     fontSize: 24,
   },
   cancel: {
-    color: '#FF6666',
+    color: '#F76C6C', // Soft red
   },
   save: {
-    color: '#66FF66',
+    color: '#6BF178', // Soft green
   },
   label: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 18,
+    fontWeight: '600',
     marginTop: 20,
     marginBottom: 8,
+    color: '#555',
+    fontFamily: 'Avenir-Next',
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
-    padding: 10,
-    backgroundColor: '#fff',
+    borderColor: '#FFD1DC', // Light pink
+    borderRadius: 16,
+    padding: 12,
+    backgroundColor: '#FFF',
+    fontFamily: 'Avenir-Next',
   },
   timeContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     gap: 10,
   },
-  timePicker: {
-    flex: 1,
-    justifyContent: 'center',
-  },
   colorContainer: {
     flexDirection: 'row',
     marginTop: 10,
+    alignItems: 'center',
   },
   colorCircle: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     marginHorizontal: 5,
-    borderWidth: 2,
+    borderWidth: 3,
     borderColor: '#fff',
   },
   selectedColor: {
     borderColor: '#000',
-    borderWidth: 2,
+    borderWidth: 3,
   },
   subtaskInputContainer: {
     flexDirection: 'row',
@@ -249,32 +252,35 @@ const styles = StyleSheet.create({
   subtaskInput: {
     flex: 1,
     borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
+    borderColor: '#FFD1DC',
+    borderRadius: 16,
     padding: 10,
-    backgroundColor: '#fff',
+    backgroundColor: '#FFF',
+    fontFamily: 'Avenir-Next',
   },
   addButton: {
-    marginLeft: 10,
-    backgroundColor: '#FF6600',
-    borderRadius: 8,
-    padding: 10,
+    backgroundColor: '#FF8BA7',
+    borderRadius: 16,
+    padding: 12,
+    marginLeft: 8,
   },
   addButtonText: {
     fontSize: 18,
-    color: '#fff',
+    color: '#FFF',
+    fontFamily: 'Avenir-Next',
   },
   subtaskItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 10,
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    marginTop: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    marginVertical: 4,
+    backgroundColor: '#FFE4E1',
+    borderRadius: 16,
   },
   removeButton: {
-    color: '#FF6666',
+    color: '#F76C6C',
     fontSize: 18,
   },
 });

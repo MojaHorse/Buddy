@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import TimeTableScreem from '../ScreenComponents/TimeTableFolder/TimeTableScreem';
 import TasksScreen from '../ScreenComponents/TasksFolder/TasksScreen';
@@ -9,10 +10,13 @@ import CustomHeader from './Header';
 const Tab = createBottomTabNavigator();
 
 export default function MyTabs() {
+
+  const navigation = useNavigation();
+
   return (
     <Tab.Navigator
       screenOptions={{
-        header: () => <CustomHeader />,
+        header: () => <CustomHeader navigation={navigation}/>,
         tabBarStyle: {
           position: 'absolute',
           bottom: 10,
