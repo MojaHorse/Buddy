@@ -1,12 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  FlatList,
-} from 'react-native';
+import { useRoute } from '@react-navigation/native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList, } from 'react-native';
 
 const getDaysInMonth = (month, year) => {
   const days = [];
@@ -37,7 +31,7 @@ export default function CustomHeader({navigation}) {
   const [currentMonth, setCurrentMonth] = useState(month);
   const [currentYear, setCurrentYear] = useState(year);
   const flatListRef = useRef(null);
-  const lastPressRefs = useRef({}); // Store refs for each day
+  const lastPressRefs = useRef({}); 
 
   useEffect(() => {
     setDays(getDaysInMonth(currentMonth, currentYear));
@@ -114,6 +108,22 @@ export default function CustomHeader({navigation}) {
     );
   };
 
+  const route = useRoute();
+  
+  const handlePencilPress = () => {
+    switch (route.name) {
+      case 'Home':
+        navigation.navigate('EditTimeTableScreen'); // Navigate to Edit Time Table Screen
+        break;
+      case 'Tasks':
+        navigation.navigate('AddTask'); // Navigate to Edit Tasks Screen
+        break;
+      default:
+        console.log('No navigation action for this screen.');
+        break;
+    }
+  };
+
   return (
     <View>
       <View style={styles.header}>
@@ -127,25 +137,46 @@ export default function CustomHeader({navigation}) {
         </View>
 
         <View style={styles.headerIcons}>
-          <TouchableOpacity style={styles.headerIcon}>
+          <TouchableOpacity
+            style={styles.headerIcon}
+            //onPress={() => navigation.navigate('SearchScreen')} // Navigate to Search Screen
+          >
             <Image
               source={require('../assets/HeaderIcons/search.png')}
               style={styles.icon}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.headerIcon}>
+          <TouchableOpacity
+            style={styles.headerIcon}
+            onPress={handlePencilPress} // Navigate to Search Screen
+          >
+            <Image
+              source={require('../assets/HeaderIcons/pencil.png')}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.headerIcon}
+            //onPress={() => navigation.navigate('CalendarScreen')} // Navigate to Calendar Screen
+          >
             <Image
               source={require('../assets/HeaderIcons/calendar (1).png')}
               style={styles.icon}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.headerIcon}>
+          <TouchableOpacity
+            style={styles.headerIcon}
+            //onPress={() => navigation.navigate('NotificationsScreen')} // Navigate to Notifications Screen
+          >
             <Image
               source={require('../assets/HeaderIcons/notification.png')}
               style={styles.icon}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.headerIcon}>
+          <TouchableOpacity
+            style={styles.headerIcon}
+            onPress={() => navigation.navigate('UserScreen')} // Navigate to User Profile Screen
+          >
             <Image
               source={require('../assets/HeaderIcons/user (1).png')}
               style={styles.icon}

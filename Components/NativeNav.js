@@ -4,6 +4,11 @@ import { SafeAreaView, StyleSheet, Platform, StatusBar } from 'react-native';
 
 import MyTabs from './BottomNav';
 import NewTaskScreen from '../ScreenComponents/TasksFolder/AddingTasksScreen';
+import SignInScreen from '../ScreenComponents/AuthenticationFolder/SignInScreen';
+import SignUpScreen from '../ScreenComponents/AuthenticationFolder/SignUpScreen';
+import VerifyCodeScreen from '../ScreenComponents/AuthenticationFolder/VerifyCodeScreen';
+import UserScreen from '../ScreenComponents/SettingsFolder/UserScreen';
+import CustomHeader from './Header';
 
 const Stack = createStackNavigator();
 
@@ -16,8 +21,13 @@ export default function MyStack() {
             headerShown: false, // Hide headers for stack screens
           }}
         >
+          <Stack.Screen name="SignInScreen" component={SignInScreen} />
+          <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+          <Stack.Screen name="VerifyCodeScreen" component={VerifyCodeScreen} />
           <Stack.Screen name="Home" component={MyTabs} />
           <Stack.Screen name="AddTask" component={NewTaskScreen} />
+          <Stack.Screen name="CusHeader" component={CustomHeader} />
+          <Stack.Screen name="UserScreen" component={UserScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
