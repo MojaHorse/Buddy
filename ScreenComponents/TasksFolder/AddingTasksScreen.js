@@ -12,6 +12,7 @@ import {
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../Components/FirebaseConfig';
+import { auth } from '../../Components/FirebaseConfig'; // Ensure auth is imported
 
 export default function NewTaskScreen() {
   const [taskName, setTaskName] = useState('');
@@ -68,6 +69,13 @@ export default function NewTaskScreen() {
       Alert.alert('Error', 'End time is required.');
       return;
     }
+
+    // Get the current user's ID
+    const currentUser = auth.currentUser;
+    if (!currentUser) {
+      Alert.alert('Error', 'You must be logged in to save a task.');
+      return;
+    }
   
     const task = {
       taskName: taskName.trim(),
@@ -75,6 +83,7 @@ export default function NewTaskScreen() {
       endTime,
       color: selectedColor,
       subTasks,
+      userId: currentUser.uid, // Include user ID for Firestore rules
       createdAt: new Date().toISOString(),
     };
   
