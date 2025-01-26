@@ -113,10 +113,10 @@ export default function CustomHeader({navigation}) {
   const handlePencilPress = () => {
     switch (route.name) {
       case 'Home':
-        navigation.navigate('EditTimeTableScreen'); // Navigate to Edit Time Table Screen
+        navigation.navigate('EditTimeTableScreen');
         break;
       case 'Tasks':
-        navigation.navigate('AddTask'); // Navigate to Edit Tasks Screen
+        navigation.navigate('AddTask'); 
         break;
       default:
         console.log('No navigation action for this screen.');
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    width: '45%',
+    width: '55%',
   },
   headerIcon: {
     height: 40,
